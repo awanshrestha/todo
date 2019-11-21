@@ -1,0 +1,133 @@
+body{
+    margin:0;
+    padding: 0;
+    background-color: rgba(120, 180, 172, 0.212);
+}
+
+.top-heading{
+    color: rgb(190, 48, 105);
+    padding: 10px 30px 5px;
+    background-color: #8AA9A8;
+    font-family: 'Pacifico', cursive;
+    font-size: 35px;
+    margin:0;
+}
+
+h2{
+    font-family: 'Pacifico', cursive;
+    font-size: 33px;
+    color: rgb(21, 158, 78);
+    margin: 8px 0 10px;
+    margin-top: 0;
+    text-decoration: underline;
+}
+
+h3{
+    font-family: 'Pacifico', cursive;
+    font-size: 23px;
+    color: rgb(21, 158, 78);
+    text-align: center;
+    margin: 8px 0 10px;
+}
+
+.box{
+    background-color: cadetblue;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+input[type="text"]{
+    height: 25px;
+    width: 200px;
+    border: 2px solid rgb(52, 27, 165);
+    border-radius: 5px;
+}
+
+input[type="submit"]{
+    background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	font-weight:bold;
+    padding:5px 14px;
+    margin-left:15px;
+	text-decoration:none;
+}
+
+.topic{
+    font-family: 'Public Sans', sans-serif;
+    margin: 0 10px 15px;
+    padding:5px;
+    border: 2px solid rgb(51, 95, 88);
+    
+}
+
+.task{
+    font-family: 'Public Sans', sans-serif;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 2fr auto 9fr;
+}
+
+.left{
+    margin:  0 15px 15px;
+    text-align: center;
+}
+
+.plus{
+    font-size: 40px;
+    color: #599bb3;
+    margin: 5px;
+}
+
+.plus:hover{
+    color: #2c8fb3;
+    cursor: pointer;
+}
+
+.add-topic{
+    position: absolute;
+    left: 40%;
+    top:40%;
+}
+
+.vl{
+    border-left: 2px solid#8AA9A8;
+    
+    height: calc(100vh - 78px);
+}
+
+.right{
+    margin: 15px 15px 25px ;
+}
+
+.myButton {
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 32px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #3d768a;
+    max-width: 200px;
+    /* margin: 10px; */
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
