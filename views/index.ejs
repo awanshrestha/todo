@@ -14,27 +14,34 @@
     <div class="grid-container">
         <div class="left">
             <h3>Category</h3>
-            <h3 class="myButton">Home</h3>
-            <h3 class="myButton">Home</h3>
+
+            <%results.forEach(function(result){%>
+                <a href="/<%=result.name%>"><h3 class="myButton"><%=result.name%></h3></a> 
+            <%});%>
+
             <br>
             <i id="shower" class="fa fa-plus-circle plus" ></i>
         </div>
         <div class="vl"></div>
         <div class="right">
-            <h2>Home</h2>
-            <input type="checkbox" value="cxxxxx">  
-            <span>djadjka</span>
+            <h2><%=title%></h2>
+            
+            <%tasks.forEach(function(task){%>
+                <input type="checkbox" value="cxxxxx">  
+            <span> <%=task.name%></span>
+            <%});%>
+            
             <br><br>
-            <form action="">
-                    <input type="text" name="" id="textfield" placeholder=" Add new task"> 
+            <form >
+                    <input type="text" name="" id="addtask" placeholder=" Add new task"> 
                     <input type="submit" value="Add Task">
                 </form>
         </div>
     </div>
     <div id="toShow" class="add-topic" style="display: none;" >
         <div class="box">
-                <form action="">
-                        <input type="text" name="" id="textfield" placeholder="Add new topic"> 
+                <form action="/addCategory" method="post">
+                        <input type="text" name="newTopic" id="textfield" placeholder="Add new topic" value=""> 
                         <input type="submit" value="Add">
                     </form>
         </div>
