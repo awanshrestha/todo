@@ -9,11 +9,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 app.set("view engine","ejs");
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost:27017/todoDB", {useNewUrlParser: true,useUnifiedTopology: true });
 
 const taskSchema = {
-    name:String
-}
+    name: String
+};
 
 const Task = mongoose.model("Task",taskSchema);
 
@@ -30,72 +30,74 @@ const listSchema = {
 
 const List = mongoose.model("List", listSchema);
 
-app.get("/", function(req, res) {
-
-    Task.find({}, function(err, foundTasks){
-  
-      if (foundTasks.length === 0) {
-        Task.insertMany(defaultTasks, function(err){
-          if (err) {
-            console.log(err);
-          } else {
-            Task.find({},function(error,foundTask){
-                if(!error){
-                    List.insertMany([
-                        {name: "Today", tasks: foundTask}
-                    ],function(error){
-                        if (err) {
-                            console.log(error);
-                          } else {
-                            console.log("Successfully saved List items to DB.");
-                          }
-                    });
-                }
-            });
-          }
-        });     
-        res.redirect("/");
-      } else {
-        List.find({},function(error,results){
-            if(!error){
-                var results = results;
-                var title = results[0].name;
-                var tasks = results[0].tasks;
-                res.render("index", {title: title, tasks: tasks, results:results});
+app.get("/",(req,res)=>{
+    List.find({},function(error,results){
+        if(error){
+            console.log("Eror");
+        }
+        else{
+            if(results.length == 0){
+                var today = new List({
+                    name: "Today",
+                    tasks: defaultTasks
+                });
+                today.save();
+                res.redirect("/");
+            } 
+            else{
+                res.redirect("/"+"today");
             }
-        });
-       
-      }
+        }
     });
-});
-
+});  
+  
 app.post("/addCategory",(req,res)=>{
     var newCategory = _.capitalize(req.body.newTopic);
     List.findOne({name: newCategory},function(error,found){
         if(!error){
             if(!found){
-                const list = new List({
+                var list = new List({
                     name: newCategory,
                     tasks: []
                 });
                 list.save();
-                res.render("/" + newCategory);
+                res.redirect("/" + newCategory);
+            }
+            else{
+                res.redirect("/" + newCategory);
             }
         }
     });
 });
 
-app.get("/:customName",(req,res)=>{
-    const customName = _.capitalize(req.params.customName);
-    List.findOne({name: customName},(error, results)=>{
-        if(!error){
-            var results = results;
-            var title = results.name;
-            var tasks = results.tasks;
-            res.render("index", {title: title, tasks: tasks, results:results});
-            }
-        });
+app.get("/:customList",(req,res)=>{
+    const customName = _.capitalize(req.params.customList);
+    List.find({},function(err,allLists){
+        if(!err){
+            List.findOne({name: customName}, function(err, foundList){
+                if (!err){
+                    res.render("index",{title: foundList.name, tasks: foundList.tasks, results: allLists });
+                }
+              });
+        }
+    });
 });
+
+app.post("/",(req,res)=>{
+    const taskName = req.body.newtask;
+    const listName = req.body.list;
+
+    const newt = new Task({
+        name: taskName
+    });
+    List.findOne({name: listName}, function(err, foundList){
+        foundList.tasks.push(newt);
+        foundList.save();
+        res.redirect("/" + listName);
+      });
+});
+
+
 
 app.listen(3000, ()=>{
     console.log("listening at port 3000");

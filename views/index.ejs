@@ -15,11 +15,11 @@
         <div class="left">
             <h3>Category</h3>
 
-            <%results.forEach(function(result){%>
-                <a href="/<%=result.name%>"><h3 class="myButton"><%=result.name%></h3></a> 
+            <%Array.from(results).forEach(function(result){%>
+                <a href="/<%=result.name%>" ><h3 class="myButton"><%=result.name%></h3></a> <br>
             <%});%>
 
-            <br>
+           
             <i id="shower" class="fa fa-plus-circle plus" ></i>
         </div>
         <div class="vl"></div>
@@ -28,20 +28,19 @@
             
             <%tasks.forEach(function(task){%>
                 <input type="checkbox" value="cxxxxx">  
-            <span> <%=task.name%></span>
+            <span> <%=task.name%></span> <br> <br>
             <%});%>
             
-            <br><br>
-            <form >
-                    <input type="text" name="" id="addtask" placeholder=" Add new task"> 
-                    <input type="submit" value="Add Task">
+            <form action="/" method="post">
+                    <input type="text" name="newtask" id="addtask" placeholder=" Add new task" required> 
+                    <button type="submit" name = "list" value="<%=title%>">Add Task</button>
                 </form>
         </div>
     </div>
     <div id="toShow" class="add-topic" style="display: none;" >
         <div class="box">
                 <form action="/addCategory" method="post">
-                        <input type="text" name="newTopic" id="textfield" placeholder="Add new topic" value=""> 
+                        <input type="text" name="newTopic" id="textfield" placeholder="Add new topic" value="" required> 
                         <input type="submit" value="Add">
                     </form>
         </div>
