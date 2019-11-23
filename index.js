@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 app.set("view engine","ejs");
-mongoose.connect("mongodb://localhost:27017/todoDB", {useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost:27017/todoDB", {useNewUrlParser: true,useUnifiedTopology: true ,useFindAndModify:false});
 
 const taskSchema = {
     name: String
@@ -76,7 +76,15 @@ app.get("/:customList",(req,res)=>{
         if(!err){
             List.findOne({name: customName}, function(err, foundList){
                 if (!err){
-                    res.render("index",{title: foundList.name, tasks: foundList.tasks, results: allLists });
+                    if(foundList){
+                        res.render("index",{title: foundList.name, id: foundList._id, tasks: foundList.tasks, results: allLists });
+                    }
+                    else{
+                        res.redirect("/");
+                    }   
+                }
+                else{
+                    res.redirect("/");
                 }
               });
         }
@@ -97,6 +105,28 @@ app.post("/",(req,res)=>{
       });
 });
 
+app.post("/deleteTask",(req,res)=>{
+    var title = req.body.listName;
+    var checkbox = req.body.checkbox;
+
+    List.findOneAndUpdate({name: title}, {$pull: {tasks: {_id: checkbox}}}, function(err, foundList){
+        if (!err){
+          res.redirect("/" + title);
+        }
+      });
+});
+
+app.post("/deleteList",(req,res)=>{
+    var id = req.body.id;
+    List.findByIdAndDelete({_id: id},(error,results)=>{
+        if(error){
+            console.log("error deleting list");
+        }
+        else{
+            res.redirect("/");
+        }
+    });
+});
 
 
 app.listen(3000, ()=>{

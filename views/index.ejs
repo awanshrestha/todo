@@ -24,11 +24,27 @@
         </div>
         <div class="vl"></div>
         <div class="right">
-            <h2><%=title%></h2>
+
+                <span class="heading">
+                        <h2><%=title%></h2>
+                        <form action="deleteList" method="post">
+                                <input type="hidden" name = "id" value="<%=id%>">
+                                <button type="submit" style="background:none;border:none;padding:0;">
+                                        <i class="fa fa-trash plus green" ></i>
+                                </button>
+                                
+                        </form>
+                        
+                </span>
             
             <%tasks.forEach(function(task){%>
-                <input type="checkbox" value="cxxxxx">  
-            <span> <%=task.name%></span> <br> <br>
+
+                <form action="/deleteTask" method="post">
+                    <input type="hidden" name="listName" value="<%=title%>">
+                    <input type="checkbox" name="checkbox" value="<%=task._id%>" id="<%=task._id%>" onchange="this.form.submit()">
+                     <label for="<%=task._id%>"><%=task.name%></label>
+                    <br> <br>
+                </form>
             <%});%>
             
             <form action="/" method="post">
@@ -55,6 +71,8 @@
             var input = document.getElementById("textfield");
             input.select();
         }
+        var inputs = document.getElementById("addtask");
+            inputs.select();
     </script>
 </body>
 </html>

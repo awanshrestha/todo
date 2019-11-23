@@ -13,6 +13,13 @@ body{
     margin:0;
 }
 
+.heading{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
 h2{
     font-family: 'Pacifico', cursive;
     font-size: 33px;
@@ -48,7 +55,7 @@ input[type="text"]{
     border-radius: 5px;
 }
 
-button[type="submit"]{
+button[type="submit"],input[type="submit"]{
     background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
 	background-color:#599bb3;
 	border-radius:8px;
@@ -137,3 +144,7 @@ button[type="submit"]{
 	position:relative;
 	top:1px;
 }
+
+.green{
+    color: rgb(211, 22, 132);
+}   
